@@ -2,6 +2,12 @@ package cmd
 
 import "gopkg.in/urfave/cli.v2"
 
+var Verbose = &cli.BoolFlag{
+	Name:  "verbose, v",
+	Value: false,
+	Usage: "prints debug messages if set",
+}
+
 var basePath = &cli.StringFlag{
 	Name:  "base-path",
 	Value: "testdata",

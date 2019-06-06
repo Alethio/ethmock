@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/alethio/ethmock/server"
 	"gopkg.in/urfave/cli.v2"
@@ -13,7 +13,7 @@ var Serve = &cli.Command{
 	Usage: "serve starts a mocked ethereum rpc server",
 	Flags: []cli.Flag{basePath, httpPort},
 	Action: func(c *cli.Context) error {
-
+		log.SetLevel(log.DebugLevel)
 		log.Fatal(server.Serve(c.Int("http-port"), "./testdata/"))
 
 		return nil
