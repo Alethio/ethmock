@@ -21,4 +21,10 @@ You have two options of using this mock rpc server:
 
 ### Standalone
 
+Using `ethmock` as a standalone binarry is easy. All you need to do is
+
+```sh
+go install https://github.com/alethio/ethmock
+```
+
 ### As a package
