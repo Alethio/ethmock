@@ -14,8 +14,11 @@ var Serve = &cli.Command{
 	Flags: []cli.Flag{basePath, httpPort},
 	Action: func(c *cli.Context) error {
 		log.SetLevel(log.DebugLevel)
-		log.Fatal(server.Serve(c.Int("http-port"), "./testdata/"))
+		srv, err := server.New(c.Int("http-port"), "./testdata/")
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		return nil
+		return srv.Serve()
 	},
 }

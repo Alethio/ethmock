@@ -7,16 +7,32 @@ import (
 )
 
 type Server struct {
-	path string
+	path     string
+	instance *http.Server
 }
 
-func Serve(port int, path string) error {
+func (s *Server) Serve() error {
+	return s.instance.ListenAndServe()
+}
+
+func (s *Server) Close() error {
+	return s.instance.Close()
+}
+
+func New(port int, path string) (*Server, error) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		return err
+		return nil, err
 	}
-	s := Server{
-		path: path,
-	}
+
+	s := Server{}
+
+	s.path = path
+
 	ps := fmt.Sprintf(":%d", port)
-	return http.ListenAndServe(ps, s)
+	s.instance = &http.Server{
+		Addr:    ps,
+		Handler: s,
+	}
+
+	return &s, nil
 }
