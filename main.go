@@ -11,7 +11,7 @@ import (
 func main() {
 	app := &cli.App{
 		Name:     "ethmock",
-		Usage:    "ethmock command",
+		Usage:    "ethmock",
 		HelpName: "ethmock",
 		Version:  "0.0.1",
 		Flags: []cli.Flag{

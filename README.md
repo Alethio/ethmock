@@ -21,10 +21,34 @@ You have two options of using this mock rpc server:
 
 ### Standalone
 
-Using `ethmock` as a standalone binarry is easy. All you need to do is
+Using `ethmock` as a standalone binary is easy. All you need to do is
 
 ```sh
-go install https://github.com/alethio/ethmock
+$ go get github.com/alethio/ethmock
+$ ethmock --help
+NAME:
+   ethmock
+
+USAGE:
+   ethmock [global options] command [command options] [arguments...]
+
+VERSION:
+...
+```
+After installing it, you can start it up as a server with the `serve` command, or you can use it's `fetch` command to download sample responses to use from an ethereum  client node.
+
+#### Examples:
+
+#### `serve`
+```sh
+$ ethmock serve
+```
+
+#### `fetch`
+```sh
+$ ethmock fetch --base-path testdata/infura eth_chainId 
+$ ethmock fetch --eth-client-url https://mainnet.infura.io eth_getBlockByNumber '["0x1b4",true]'
 ```
 
 ### As a package
+Using `ethmock` as a package is mostly used in your tests, so you have a reference, local, ethereum client with preprogrammed responses you can test against.
