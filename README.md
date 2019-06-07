@@ -58,3 +58,33 @@ INFO[0000] wrote request.json(126B), response.json(2.3K) to testdata/eth_getBloc
 
 ### As a package
 Using `ethmock` as a package is mostly used in your tests, so you have a reference, local, ethereum client with preprogrammed responses you can test against.
+
+Example initialization:
+```
+package test
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	mock "github.com/alethio/ethmock/server"
+)
+
+func TestRequest(t *testing.T) {
+	srv, err := mock.New(8545, "../testdata/mock")
+	assert.Nil(t, err)
+	go srv.Serve()
+	defer srv.Close()
+
+	p, err := httprpc.New("http://localhost:8545")
+	assert.Nil(t, err)
+
+	e, err := New(p)
+	assert.Nil(t, err)
+
+	n, err := e.GetBlockNumber()
+	assert.Nil(t, err)
+
+	assert.Equal(t, int64(7912466), n)
+}
+```
