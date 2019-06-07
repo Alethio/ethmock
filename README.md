@@ -9,6 +9,7 @@ This is a list of intended features. WIP.
 - [x] http support
 - [ ] websockets support
 - [ ] helpers for most common fetch requests
+- [ ] sample data set that could be used direrctly in tests, plug and play as it were...
 - [ ] scriptable requests/responses (ie send pending txs in some order on the subscription) or control subscriptions through some method
 - [ ] use as proxy and save (record) all made rpc calls
 - [ ] re-fetch jsons you already have so you can see a diff (in case something changed in parity)
@@ -47,7 +48,12 @@ $ ethmock serve
 #### `fetch`
 ```sh
 $ ethmock fetch --base-path testdata/infura eth_chainId 
-$ ethmock fetch --eth-client-url https://mainnet.infura.io eth_getBlockByNumber '["0x1b4",true]'
+INFO[0000] starting fetch                               
+INFO[0000] wrote request.json(90B), response.json(69B) to testdata/infura/eth_chainId
+
+$ ethmock fetch --eth-client-url https://mainnet.infura.io eth_getBlockByNumber '["0xfa1b4",true]'
+INFO[0000] starting fetch                               
+INFO[0000] wrote request.json(126B), response.json(2.3K) to testdata/eth_getBlockByNumber/0xfa1b4/true 
 ```
 
 ### As a package

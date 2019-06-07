@@ -9,6 +9,8 @@ import (
 )
 
 func main() {
+	log.SetLevel(log.DebugLevel)
+
 	app := &cli.App{
 		Name:     "ethmock",
 		Usage:    "ethmock",

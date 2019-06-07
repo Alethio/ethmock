@@ -11,6 +11,7 @@ import (
 	"github.com/alethio/ethmock/types"
 	log "github.com/sirupsen/logrus"
 
+	"code.cloudfoundry.org/bytefmt"
 	"gopkg.in/urfave/cli.v2"
 )
 
@@ -48,12 +49,12 @@ var Fetch = &cli.Command{
 
 		req := types.NewJSONRPCRequest(method, args)
 
-		jsonRequest, err := json.MarshalIndent(req, "", "  ")
+		request, err := json.MarshalIndent(req, "", "  ")
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		response, err := rpc.Request(jsonRequest)
+		response, err := rpc.Request(request)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -69,7 +70,7 @@ var Fetch = &cli.Command{
 		os.MkdirAll(folder, os.ModePerm)
 
 		// write files
-		err = ioutil.WriteFile(filepath.Join(folder, "request.json"), jsonRequest, 0644)
+		err = ioutil.WriteFile(filepath.Join(folder, "request.json"), request, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -77,6 +78,11 @@ var Fetch = &cli.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
+		log.Infof("wrote request.json(%s), response.json(%s) to %s",
+			bytefmt.ByteSize(uint64(len(request))),
+			bytefmt.ByteSize(uint64(len(response))),
+			folder,
+		)
 
 		return nil
 	},
