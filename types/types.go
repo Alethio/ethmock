@@ -34,9 +34,10 @@ func NewJSONRPCRequest(method string, args []interface{}) *JSONRPCRequest {
 	id := strconv.FormatInt(rand.Int63(), 16)
 
 	return &JSONRPCRequest{
-		Method: method,
-		Params: args,
-		ID:     id,
+		Version: "2.0",
+		Method:  method,
+		Params:  args,
+		ID:      id,
 	}
 }
 
